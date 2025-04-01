@@ -1,0 +1,30 @@
+header {
+    background-color: #082029;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 24px;
+}
+
+main {
+    flex-grow: 1;
+    background-color: #05171e;
+}
+
+footer {
+    background-color: #082029;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+        height: 128px;
+        margin: -20px 0;
+    }
+
+    span {
+        color: white;
+    }
+}
