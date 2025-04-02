@@ -11,10 +11,6 @@ async function init() {
 }
 
 
-
-
-
-
 async function getPokemonDetails(pokemonData) {
     const speciesUrl = pokemonData.species.url;
     const speciesResponse = await fetch(speciesUrl);
@@ -51,13 +47,22 @@ async function renderPokemonList(pokemonArray) {
             const pokemonData = await response.json();
             const imageUrl = pokemonData.sprites.front_default;
             const pokemonDetails = await getPokemonDetails(pokemonData);
-            contentDiv.innerHTML += getPokemonCard(index, pokemon, imageUrl, pokemonDetails);
+
+            // Füge die Typen hinzu
+            const types = renderTypes(pokemonData.types);
+
+            contentDiv.innerHTML += getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types);
         } catch (error) {
             console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
         }
     }
 }
 
+function renderTypes(typesArray) {
+    return typesArray.map(typeInfo => {
+        return `<span class="type">${typeInfo.type.name}</span>`;
+    }).join(' ');
+}
 
 
 function showInfo(sectionId) {
