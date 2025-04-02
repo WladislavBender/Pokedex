@@ -1,7 +1,4 @@
-
-
 const pkmList = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
-
 
 async function init() {
     try {
@@ -30,11 +27,30 @@ async function renderPokemonList(pokemonArray) {
                         <h3>#${index + 1} ${pokemon.name}</h3>
                         <img src="${imageUrl}" alt="${pokemon.name}">
                     </div>
-                    <div id="navBar"></div>
+                    <div class="navBar">
+                        <button onclick="showInfo('info-about-${index}')">About</button>
+                        <button onclick="showInfo('info-stats-${index}')">Base Stats</button>
+                        <button onclick="showInfo('info-evolution-${index}')">Evolution</button>
+                        <button onclick="showInfo('info-moves-${index}')">Moves</button>
+                    </div>
+                        <div id="info-about-${index}" class="infoBox"></div>
+                        <div id="info-stats-${index}" class="infoBox"></div>
+                        <div id="info-evolution-${index}" class="infoBox"></div>
+                        <div id="info-moves-${index}" class="infoBox"></div>
                 </div>
             `;
         } catch (error) {
             console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
         }
+    }
+}
+
+function showInfo(sectionId) {
+    const infoBox = document.getElementById(sectionId);
+    if (infoBox) {
+        infoBox.innerHTML = `<p>Informationen zu ${sectionId.replace(/info-|-\\d+$/, '')} werden hier angezeigt.</p>`;
+        infoBox.style.display = "block";
+    } else {
+        console.error("Fehler: Element mit ID", sectionId, "nicht gefunden!");
     }
 }
