@@ -1,5 +1,5 @@
 header {
-    background-color: #082029;
+    background-color: #85005e;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,11 +9,11 @@ header {
 
 main {
     flex-grow: 1;
-    background-color: #05171e;
+    background-color: #51043a;
 }
 
 footer {
-    background-color: #082029;
+    background-color: #85005e;
     display: flex;
     justify-content: center;
     align-items: center;

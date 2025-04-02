@@ -10,8 +10,38 @@ async function init() {
     }
 }
 
+
+
+
+
+
+async function getPokemonDetails(pokemonData) {
+    const speciesUrl = pokemonData.species.url;
+    const speciesResponse = await fetch(speciesUrl);
+    const speciesData = await speciesResponse.json();
+    const height = pokemonData.height / 10;
+    const weight = pokemonData.weight / 10;
+    const abilities = pokemonData.abilities.map(a => a.ability.name).join(", ");
+    const genderRate = speciesData.gender_rate;
+    const eggGroups = speciesData.egg_groups.map(group => group.name).join(", ");
+    const eggCycle = speciesData.hatch_counter;
+    const speciesName = speciesData.name;
+
+    return {
+        speciesName,
+        height,
+        weight,
+        abilities,
+        genderRate,
+        eggGroups,
+        eggCycle
+    };
+}
+
+
 async function renderPokemonList(pokemonArray) {
     const contentDiv = document.getElementById("content");
+
     contentDiv.innerHTML = "";
 
     for (let index = 0; index < pokemonArray.length; index++) {
@@ -20,37 +50,27 @@ async function renderPokemonList(pokemonArray) {
             const response = await fetch(pokemon.url);
             const pokemonData = await response.json();
             const imageUrl = pokemonData.sprites.front_default;
-
-            contentDiv.innerHTML += `
-                <div class="pokemonCard">
-                    <div class="nameImgField">
-                        <h3>#${index + 1} ${pokemon.name}</h3>
-                        <img src="${imageUrl}" alt="${pokemon.name}">
-                    </div>
-                    <div class="navBar">
-                        <button onclick="showInfo('info-about-${index}')">About</button>
-                        <button onclick="showInfo('info-stats-${index}')">Base Stats</button>
-                        <button onclick="showInfo('info-evolution-${index}')">Evolution</button>
-                        <button onclick="showInfo('info-moves-${index}')">Moves</button>
-                    </div>
-                        <div id="info-about-${index}" class="infoBox"></div>
-                        <div id="info-stats-${index}" class="infoBox"></div>
-                        <div id="info-evolution-${index}" class="infoBox"></div>
-                        <div id="info-moves-${index}" class="infoBox"></div>
-                </div>
-            `;
+            const pokemonDetails = await getPokemonDetails(pokemonData);
+            contentDiv.innerHTML += getPokemonCard(index, pokemon, imageUrl, pokemonDetails);
         } catch (error) {
             console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
         }
     }
 }
 
+
+
 function showInfo(sectionId) {
+    const infoBoxes = document.querySelectorAll('.infoBox');
+    infoBoxes.forEach(infoBox => {
+        infoBox.style.display = 'none';
+    });
+    
     const infoBox = document.getElementById(sectionId);
     if (infoBox) {
-        infoBox.innerHTML = `<p>Informationen zu ${sectionId.replace(/info-|-\\d+$/, '')} werden hier angezeigt.</p>`;
         infoBox.style.display = "block";
     } else {
         console.error("Fehler: Element mit ID", sectionId, "nicht gefunden!");
     }
 }
+
