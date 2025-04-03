@@ -26,10 +26,10 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                 <div class="types mg-btm-16">${types}</div>
 
                 <div class="navBar">
-                    <button onclick="showInfo('info-about-${index}')">About</button>
-                    <button onclick="showInfo('info-stats-${index}')">Base Stats</button>
-                    <button onclick="showInfo('info-evolution-${index}')">Evolution</button>
-                    <button onclick="showInfo('info-moves-${index}')">Moves</button>
+                    <button id="aboutButton" class="btnDesign" onclick="showInfo('info-about-${index}')">About</button>
+                    <button class="btnDesign" onclick="showInfo('info-stats-${index}')">Base Stats</button>
+                    <button class="btnDesign" onclick="showInfo('info-evolution-${index}')">Evolution</button>
+                    <button class="btnDesign" onclick="showInfo('info-moves-${index}')">Moves</button>
                 </div>
 
                 <div id="info-about-${index}" class="infoBox" style="display: block;">  <!-- Display: block für "About" -->

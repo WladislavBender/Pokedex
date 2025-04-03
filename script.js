@@ -94,18 +94,31 @@ function renderTypes(typesArray) {
 
 
 function showInfo(sectionId) {
-    let infoBoxes = document.querySelectorAll('.infoBox');
-    infoBoxes.forEach(infoBox => {
-        infoBox.style.display = 'none';
+    // Alle Info-Boxen verstecken
+    document.querySelectorAll('.infoBox').forEach(box => {
+        box.style.display = 'none';
     });
-    
+
+    // Gewünschte Info-Box anzeigen
     let infoBox = document.getElementById(sectionId);
     if (infoBox) {
         infoBox.style.display = "block";
     } else {
         console.error("Fehler: Element mit ID", sectionId, "nicht gefunden!");
     }
+
+    // Alle Buttons zurücksetzen (aktive Klasse entfernen)
+    document.querySelectorAll('.navBar button').forEach(button => {
+        button.classList.remove("active-button");
+    });
+
+    // Den aktuell gedrückten Button hervorheben
+    let activeButton = document.querySelector(`.navBar button[onclick="showInfo('${sectionId}')"]`);
+    if (activeButton) {
+        activeButton.classList.add("active-button");
+    }
 }
+
 
 
 async function openOverlay(index) {
@@ -126,6 +139,7 @@ async function openOverlay(index) {
 
     document.body.style.overflow = "hidden";
 
+    firstActiveOverlayBtn();
     applyOverlayBackgroundColor();
 }
 
@@ -217,4 +231,9 @@ function applyOverlayBackgroundColor() {
         overlay.classList.remove(...overlay.classList);
         overlay.classList.add("overlay-content", bgClass);
     }
+}
+
+
+function firstActiveOverlayBtn() {
+    document.getElementById('aboutButton').classList.add('active-button');
 }
