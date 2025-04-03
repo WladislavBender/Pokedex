@@ -8,7 +8,7 @@
 .pokemonCard {
     padding: 16px;
     margin: 20px 24px;
-    border: 3px solid orange;
+    border: 3px solid #9c989f;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -20,8 +20,9 @@
     cursor: pointer;
     transform: scale(1.1) rotate(2deg);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    background-color: #3498db !important;
-    color: white;
+    background-color: #ffffff !important;
+    border: 3px solid #7762eb;
+    color: rgb(0, 0, 0);
     transition: all 0.3s ease-in-out;
 }
 

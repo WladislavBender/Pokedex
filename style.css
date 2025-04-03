@@ -1,9 +1,9 @@
 header {
-    background-color: #85005e;
+    background-color: #e1e1e1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 24px;
 
     img{
@@ -19,11 +19,11 @@ header {
 
 main {
     flex-grow: 1;
-    background-color: #51043a;
+    background-color: #ffffff;
 }
 
 footer {
-    background-color: #85005e;
+    background-color: #e1e1e1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,6 +35,6 @@ footer {
     }
 
     span {
-        color: white;
+        color: rgb(0, 0, 0);
     }
 }

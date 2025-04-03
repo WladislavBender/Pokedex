@@ -1,6 +1,6 @@
 function getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types) {
     return `
-        <div id="typeColors" onclick="openOverlay(${index})" class="pokemonCard">
+        <div id="bgColors" onclick="openOverlay(${index})" class="pokemonCard">
             <div class="nameImgField">
                 <div id="nameImg">
                     <h3>#${index + 1} ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>

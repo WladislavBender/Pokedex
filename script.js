@@ -59,7 +59,6 @@ async function getPokemonDetails(pokemonData) {
 
 async function renderPokemonList(pokemonArray) {
     let contentDiv = document.getElementById("content");
-
     contentDiv.innerHTML = "";
 
     for (let index = 0; index < pokemonArray.length; index++) {
@@ -77,7 +76,9 @@ async function renderPokemonList(pokemonArray) {
             console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
         }
     }
+    applyBackgroundColor();
 }
+
 
 
 function renderTypes(typesArray) {
@@ -165,3 +166,26 @@ pokemonData.forEach((pokemon, index) => {
     const cardHTML = getPokemonCard(index, pokemon, imageUrl, pokemon.details, types);
     pokemonContainer.innerHTML += cardHTML;
 });
+
+
+
+
+
+function applyBackgroundColor() {
+    const pokemonCards = document.querySelectorAll(".pokemonCard");
+
+    pokemonCards.forEach(card => {
+        const typesContainer = card.querySelector("#types");
+        const typeElements = typesContainer.querySelectorAll(".type");
+
+        if (typeElements.length > 0) {
+            const primaryType = typeElements[0].textContent.toLowerCase();
+            const bgClass = `bg_${primaryType}`;
+
+            card.id = `bg_${primaryType}_${Math.random().toString(36).substr(2, 5)}`; 
+            
+            card.classList.remove(...card.classList);
+            card.classList.add("pokemonCard", bgClass);
+        }
+    });
+}
