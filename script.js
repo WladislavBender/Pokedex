@@ -120,6 +120,8 @@ async function openOverlay(index) {
     document.body.innerHTML += overlayHTML;
 
     document.body.style.overflow = "hidden";
+
+    applyOverlayBackgroundColor();
 }
 
 
@@ -188,4 +190,21 @@ function applyBackgroundColor() {
             card.classList.add("pokemonCard", bgClass);
         }
     });
+}
+
+
+function applyOverlayBackgroundColor() {
+    const overlay = document.getElementById("overlayColors");
+    if (!overlay) return;
+
+    const typesContainer = overlay.querySelector(".types");
+    const typeElements = typesContainer.querySelectorAll(".type");
+
+    if (typeElements.length > 0) {
+        const primaryType = typeElements[0].textContent.toLowerCase();
+        const bgClass = `bg_${primaryType}`;
+
+        overlay.classList.remove(...overlay.classList);
+        overlay.classList.add("overlay-content", bgClass);
+    }
 }

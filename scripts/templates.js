@@ -18,7 +18,7 @@ function getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types) {
 function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails) {
     return `
         <div id="overlay" class="overlay" onclick="closeOverlay()">
-            <div class="overlay-content" onclick="event.stopPropagation();">
+            <div id="overlayColors" class="overlay-content" onclick="event.stopPropagation();">
                 <button class="close-btn" onclick="closeOverlay()">✖</button>
                 <h2>${pokemonName}</h2>
                 <img src="${pokemonImg}" alt="${pokemonName}">
