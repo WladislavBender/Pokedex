@@ -1,10 +1,6 @@
 const pkmList = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
 
-let allPkmColors = [{
-    
-}]
-
-const typeColors = {
+let typeColors = {
     normal: "#A8A878",
     fire: "#F08030",
     water: "#6890F0",
@@ -26,11 +22,10 @@ const typeColors = {
 };
 
 
-
 async function init() {
     try {
-        const response = await fetch(pkmList);
-        const data = await response.json();
+        let response = await fetch(pkmList);
+        let data = await response.json();
         renderPokemonList(data.results.slice(0, 20));
     } catch (error) {
         console.error("Fehler beim Laden der Pokémon-Liste:", error);
@@ -39,16 +34,16 @@ async function init() {
 
 
 async function getPokemonDetails(pokemonData) {
-    const speciesUrl = pokemonData.species.url;
-    const speciesResponse = await fetch(speciesUrl);
-    const speciesData = await speciesResponse.json();
-    const height = pokemonData.height / 10;
-    const weight = pokemonData.weight / 10;
-    const abilities = pokemonData.abilities.map(a => a.ability.name).join(", ");
-    const genderRate = speciesData.gender_rate;
-    const eggGroups = speciesData.egg_groups.map(group => group.name).join(", ");
-    const eggCycle = speciesData.hatch_counter;
-    const speciesName = speciesData.name;
+    let speciesUrl = pokemonData.species.url;
+    let speciesResponse = await fetch(speciesUrl);
+    let speciesData = await speciesResponse.json();
+    let height = pokemonData.height / 10;
+    let weight = pokemonData.weight / 10;
+    let abilities = pokemonData.abilities.map(a => a.ability.name).join(", ");
+    let genderRate = speciesData.gender_rate;
+    let eggGroups = speciesData.egg_groups.map(group => group.name).join(", ");
+    let eggCycle = speciesData.hatch_counter;
+    let speciesName = speciesData.name;
 
     return {
         speciesName,
@@ -63,20 +58,19 @@ async function getPokemonDetails(pokemonData) {
 
 
 async function renderPokemonList(pokemonArray) {
-    const contentDiv = document.getElementById("content");
+    let contentDiv = document.getElementById("content");
 
     contentDiv.innerHTML = "";
 
     for (let index = 0; index < pokemonArray.length; index++) {
-        const pokemon = pokemonArray[index];
+        let pokemon = pokemonArray[index];
         try {
-            const response = await fetch(pokemon.url);
-            const pokemonData = await response.json();
-            const imageUrl = pokemonData.sprites.front_default;
-            const pokemonDetails = await getPokemonDetails(pokemonData);
+            let response = await fetch(pokemon.url);
+            let pokemonData = await response.json();
+            let imageUrl = pokemonData.sprites.front_default;
+            let pokemonDetails = await getPokemonDetails(pokemonData);
 
-            // Füge die Typen hinzu
-            const types = renderTypes(pokemonData.types);
+            let types = renderTypes(pokemonData.types);
 
             contentDiv.innerHTML += getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types);
         } catch (error) {
@@ -84,19 +78,6 @@ async function renderPokemonList(pokemonArray) {
         }
     }
 }
-
-
-function getPokemonType(pokemon) {
-    // Überprüfen, ob das Pokémon Typen hat
-    if (pokemon.types && pokemon.types.length > 0) {
-        // Den ersten Typ zurückgeben
-        return pokemon.types[0].type.name;
-    } else {
-        // Falls kein Typ vorhanden ist, einen Standardwert zurückgeben
-        return 'normal';  // Du kannst auch jeden anderen Standard-Typ festlegen
-    }
-}
-
 
 
 function renderTypes(typesArray) {
@@ -107,12 +88,12 @@ function renderTypes(typesArray) {
 
 
 function showInfo(sectionId) {
-    const infoBoxes = document.querySelectorAll('.infoBox');
+    let infoBoxes = document.querySelectorAll('.infoBox');
     infoBoxes.forEach(infoBox => {
         infoBox.style.display = 'none';
     });
     
-    const infoBox = document.getElementById(sectionId);
+    let infoBox = document.getElementById(sectionId);
     if (infoBox) {
         infoBox.style.display = "block";
     } else {
@@ -121,23 +102,20 @@ function showInfo(sectionId) {
 }
 
 
-
-
 async function openOverlay(index) {
-    const pokemon = document.querySelectorAll(".pokemonCard")[index];
+    let pokemon = document.querySelectorAll(".pokemonCard")[index];
     if (!pokemon) return;
 
-    const pokemonName = pokemon.querySelector("h3").innerText;
-    const pokemonImg = pokemon.querySelector(".overviewImg").src;
-    const types = pokemon.querySelector("#types").innerHTML;
+    let pokemonName = pokemon.querySelector("h3").innerText;
+    let pokemonImg = pokemon.querySelector(".overviewImg").src;
+    let types = pokemon.querySelector("#types").innerHTML;
 
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${index + 1}`);
-    const pokemonData = await response.json();
-    const pokemonDetails = await getPokemonDetails(pokemonData);
+    let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${index + 1}`);
+    let pokemonData = await response.json();
+    let pokemonDetails = await getPokemonDetails(pokemonData);
 
-    const overlayHTML = getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails);
+    let overlayHTML = getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails);
 
-    // Overlay ins DOM einfügen
     document.body.innerHTML += overlayHTML;
 
     document.body.style.overflow = "hidden";
@@ -145,7 +123,7 @@ async function openOverlay(index) {
 
 
 function createInfoBox(id, content, hidden = false) {
-    const box = document.createElement("div");
+    let box = document.createElement("div");
     box.id = id;
     box.className = "infoBox";
     if (hidden) box.style.display = "none";
@@ -154,13 +132,36 @@ function createInfoBox(id, content, hidden = false) {
 }
 
 
-
-// Schließt das Overlay
 function closeOverlay() {
-    const overlay = document.getElementById("overlay");
+    let overlay = document.getElementById("overlay");
     if (overlay) {
         overlay.remove();
     }
 
     document.body.style.overflow = "auto";
 }
+
+
+function filterPokemon() {
+    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+    const pokemonCards = document.querySelectorAll(".pokemonCard");
+
+    pokemonCards.forEach(card => {
+        const nameElement = card.querySelector("h3");
+        const pokemonName = nameElement.textContent.toLowerCase();
+        
+        if (pokemonName.includes(searchTerm)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+const pokemonContainer = document.getElementById('pokemonContainer');
+const pokemonData = [];
+
+pokemonData.forEach((pokemon, index) => {
+    const cardHTML = getPokemonCard(index, pokemon, imageUrl, pokemon.details, types);
+    pokemonContainer.innerHTML += cardHTML;
+});
