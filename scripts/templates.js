@@ -6,7 +6,7 @@ function getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types) {
                     <h3>#${index + 1} ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
                     <img class="overviewImg" src="${imageUrl}" alt="${pokemon.name}">
                 </div>
-                <div id="types">
+                <div class="types" id="types">
                     ${types}
                 </div>
             </div>
