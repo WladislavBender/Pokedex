@@ -1,6 +1,6 @@
 function getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types) {
     return `
-        <div onclick="openOverlay(${index})" class="pokemonCard">
+        <div id="typeColors" onclick="openOverlay(${index})" class="pokemonCard">
             <div class="nameImgField">
                 <div id="nameImg">
                     <h3>#${index + 1} ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
@@ -31,7 +31,7 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                     <button onclick="showInfo('info-moves-${index}')">Moves</button>
                 </div>
 
-                <div id="info-about-${index}" class="infoBox">
+                <div id="info-about-${index}" class="infoBox" style="display: block;">  <!-- Display: block für "About" -->
                     <p><strong>Species:</strong> ${pokemonDetails.speciesName}</p>
                     <p><strong>Height:</strong> ${pokemonDetails.height} m</p>
                     <p><strong>Weight:</strong> ${pokemonDetails.weight} kg</p>
@@ -41,16 +41,16 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                     <p><strong>Egg Cycle:</strong> ${pokemonDetails.eggCycle} steps</p>
                 </div>
 
-                <div id="info-stats-${index}" class="infoBox" style="display:none">
+                <div id="info-stats-${index}" class="infoBox" style="display: none;">
                     <p>Base Stats kommen hier.</p>
                 </div>
-                <div id="info-evolution-${index}" class="infoBox" style="display:none">
+                <div id="info-evolution-${index}" class="infoBox" style="display: none;">
                     <p>Evolution kommen hier.</p>
                 </div>
-                <div id="info-moves-${index}" class="infoBox" style="display:none">
+                <div id="info-moves-${index}" class="infoBox" style="display: none;">
                     <p>Moves kommen hier.</p>
                 </div>
             </div>
         </div>
-    `
+    `;
 }

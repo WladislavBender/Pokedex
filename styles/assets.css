@@ -18,6 +18,11 @@
 
 .pokemonCard:hover {
     cursor: pointer;
+    transform: scale(1.1) rotate(2deg); /* Skalieren und drehen */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Schatten */
+    background-color: #3498db; /* Hintergrundfarbe ändern */
+    color: white; /* Textfarbe ändern */
+    transition: all 0.3s ease-in-out;
 }
 
 .nameImgField {
@@ -44,9 +49,6 @@
     }
 }
 
-
-
-
 .overlay {
     position: fixed;
     top: 0;
@@ -61,11 +63,13 @@
 }
 
 .overlay-content {
-    background: white;
+    background: rgb(255, 255, 255, 1);
+    color: black;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    width: 300px;
+    width: 450px;
+    height: 760px;
     position: relative;
 }
 
@@ -81,6 +85,36 @@
 
 img {
     max-width: 100%;
-    height: auto;
+    height: 244px;
     margin-top: 10px;
+}
+
+
+
+
+
+.spinner-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.spinner {
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

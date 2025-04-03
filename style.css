@@ -5,6 +5,16 @@ header {
     align-items: center;
     color: white;
     padding: 24px;
+
+    img{
+        height: 60px;
+    }
+
+    div{
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
 }
 
 main {

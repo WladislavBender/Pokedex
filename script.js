@@ -1,5 +1,32 @@
 const pkmList = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
 
+let allPkmColors = [{
+    
+}]
+
+const typeColors = {
+    normal: "#A8A878",
+    fire: "#F08030",
+    water: "#6890F0",
+    electric: "#F8D030",
+    grass: "#78C850",
+    ice: "#98D8D8",
+    fighting: "#C03028",
+    poison: "#A040A0",
+    ground: "#E0C068",
+    flying: "#A890F0",
+    psychic: "#F85888",
+    bug: "#A8B820",
+    rock: "#B8A038",
+    ghost: "#705898",
+    dragon: "#7038F8",
+    dark: "#705848",
+    steel: "#B8B8D0",
+    fairy: "#F0B6BC"
+};
+
+
+
 async function init() {
     try {
         const response = await fetch(pkmList);
@@ -58,6 +85,20 @@ async function renderPokemonList(pokemonArray) {
     }
 }
 
+
+function getPokemonType(pokemon) {
+    // Überprüfen, ob das Pokémon Typen hat
+    if (pokemon.types && pokemon.types.length > 0) {
+        // Den ersten Typ zurückgeben
+        return pokemon.types[0].type.name;
+    } else {
+        // Falls kein Typ vorhanden ist, einen Standardwert zurückgeben
+        return 'normal';  // Du kannst auch jeden anderen Standard-Typ festlegen
+    }
+}
+
+
+
 function renderTypes(typesArray) {
     return typesArray.map(typeInfo => {
         return `<span class="type">${typeInfo.type.name}</span>`;
@@ -98,6 +139,8 @@ async function openOverlay(index) {
 
     // Overlay ins DOM einfügen
     document.body.innerHTML += overlayHTML;
+
+    document.body.style.overflow = "hidden";
 }
 
 
@@ -118,4 +161,6 @@ function closeOverlay() {
     if (overlay) {
         overlay.remove();
     }
+
+    document.body.style.overflow = "auto";
 }
