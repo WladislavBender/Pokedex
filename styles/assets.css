@@ -95,3 +95,21 @@ img {
     height: 244px;
     margin-top: 10px;
 }
+
+
+.type-icon {
+    height: 48px !important;
+    margin-right: 5px;
+    vertical-align: middle;
+    background-color: white !important;
+}
+
+.elementIcons{
+    border: 3px solid #000000;
+    padding: 0px;
+    border-radius: 32px;
+}
+
+.mg-btm-16{
+    margin-bottom: 16px;
+}

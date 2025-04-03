@@ -83,7 +83,12 @@ async function renderPokemonList(pokemonArray) {
 
 function renderTypes(typesArray) {
     return typesArray.map(typeInfo => {
-        return `<span class="type">${typeInfo.type.name}</span>`;
+        let typeName = typeInfo.type.name;
+        let iconPath = `./assets/pokemonIcons/${typeName}.png`;
+
+        return `<span class="type">
+                    <img class="elementIcons type-icon" src="${iconPath}" alt="${typeName}">
+                </span>`;
     }).join(' ');
 }
 
@@ -181,8 +186,13 @@ function applyBackgroundColor() {
         const typeElements = typesContainer.querySelectorAll(".type");
 
         if (typeElements.length > 0) {
-            const primaryType = typeElements[0].textContent.toLowerCase();
-            const bgClass = `bg_${primaryType}`;
+            const primaryType = typeElements[0].querySelector("img").alt.toLowerCase();
+            const bgClass = `bg_${primaryType.trim()}`;
+
+            if (primaryType) {
+                const bgClass = `bg_${primaryType.trim()}`;
+                card.classList.add(bgClass);
+            }
 
             card.id = `bg_${primaryType}_${Math.random().toString(36).substr(2, 5)}`; 
             
@@ -201,8 +211,8 @@ function applyOverlayBackgroundColor() {
     const typeElements = typesContainer.querySelectorAll(".type");
 
     if (typeElements.length > 0) {
-        const primaryType = typeElements[0].textContent.toLowerCase();
-        const bgClass = `bg_${primaryType}`;
+        const primaryType = typeElements[0].querySelector("img").alt.toLowerCase();
+        const bgClass = `bg_${primaryType.trim()}`;
 
         overlay.classList.remove(...overlay.classList);
         overlay.classList.add("overlay-content", bgClass);

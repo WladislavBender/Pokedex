@@ -7,12 +7,13 @@ function getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types) {
                     <img class="overviewImg" src="${imageUrl}" alt="${pokemon.name}">
                 </div>
                 <div class="types" id="types">
-                    ${types}
+                    ${types} <!-- Hier werden jetzt die Icons statt des Texts eingefügt -->
                 </div>
             </div>
         </div>
     `;
 }
+
 
 
 function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails) {
@@ -22,7 +23,7 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                 <button class="close-btn" onclick="closeOverlay()">✖</button>
                 <h2>${pokemonName}</h2>
                 <img src="${pokemonImg}" alt="${pokemonName}">
-                <div class="types">${types}</div>
+                <div class="types mg-btm-16">${types}</div>
 
                 <div class="navBar">
                     <button onclick="showInfo('info-about-${index}')">About</button>
