@@ -79,3 +79,43 @@ function showInfo(sectionId) {
     }
 }
 
+
+
+
+async function openOverlay(index) {
+    const pokemon = document.querySelectorAll(".pokemonCard")[index];
+    if (!pokemon) return;
+
+    const pokemonName = pokemon.querySelector("h3").innerText;
+    const pokemonImg = pokemon.querySelector(".overviewImg").src;
+    const types = pokemon.querySelector("#types").innerHTML;
+
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${index + 1}`);
+    const pokemonData = await response.json();
+    const pokemonDetails = await getPokemonDetails(pokemonData);
+
+    const overlayHTML = getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails);
+
+    // Overlay ins DOM einfügen
+    document.body.innerHTML += overlayHTML;
+}
+
+
+function createInfoBox(id, content, hidden = false) {
+    const box = document.createElement("div");
+    box.id = id;
+    box.className = "infoBox";
+    if (hidden) box.style.display = "none";
+    box.innerHTML = content;
+    return box;
+}
+
+
+
+// Schließt das Overlay
+function closeOverlay() {
+    const overlay = document.getElementById("overlay");
+    if (overlay) {
+        overlay.remove();
+    }
+}
