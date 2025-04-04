@@ -25,7 +25,7 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
     return `
         <div id="overlay" class="overlay" data-index="${index}" onclick="closeOverlay()">
             <div id="overlayColors" class="overlayContent" onclick="event.stopPropagation();">
-                <button class="closeBtn" onclick="closeOverlay()">✖</button>
+                <button class="closeBtn" onclick="closeOverlay()">X</button>
                 <h2>${pokemonName}</h2>
                 <img src="${pokemonImg}" alt="${pokemonName}">
                 <div class="types mg-btm-16">${types}</div>
