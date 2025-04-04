@@ -6,14 +6,20 @@ header {
     color: rgb(0, 0, 0);
     padding: 24px;
 
-    img{
+    img {
         height: 60px;
     }
 
-    div{
+    div {
         display: flex;
         justify-content: center;
         align-items: end;
+    }
+
+    input {
+        padding: 4px;
+        border: 2px solid #999999;
+        border-radius: 10px;
     }
 }
 
