@@ -1,4 +1,6 @@
 const pkmList = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
+let loadedPokemonCount = 20;
+
 
 window.addEventListener("load", () => {
     setTimeout(() => {
@@ -15,6 +17,23 @@ async function init() {
         renderPokemonList(data.results.slice(0, 20));
     } catch (error) {
         console.error("Fehler beim Laden der Pokémon-Liste:", error);
+    }
+}
+
+
+async function loadMorePokemons() {
+    try {
+        const url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadedPokemonCount}`;
+
+        let response = await fetch(url);
+        let data = await response.json();
+
+        renderPokemonList(data.results);
+
+        loadedPokemonCount += 20;
+        
+    } catch (error) {
+        console.error("Fehler beim Laden der weiteren Pokémon:", error);
     }
 }
 
@@ -168,7 +187,7 @@ function filterPokemon() {
     pokemonCards.forEach(card => {
         const nameElement = card.querySelector("h3");
         const pokemonName = nameElement.textContent.toLowerCase();
-        
+
         if (pokemonName.includes(searchTerm)) {
             card.style.display = "";
         } else {
@@ -176,6 +195,7 @@ function filterPokemon() {
         }
     });
 }
+
 
 const pokemonContainer = document.getElementById('pokemonContainer');
 const pokemonData = [];
@@ -202,8 +222,8 @@ function applyBackgroundColor() {
                 card.classList.add(bgClass);
             }
 
-            card.id = `bg_${primaryType}_${Math.random().toString(36).substr(2, 5)}`; 
-            
+            card.id = `bg_${primaryType}_${Math.random().toString(36).substr(2, 5)}`;
+
             card.classList.remove(...card.classList);
             card.classList.add("pokemonCard", bgClass);
         }
@@ -304,4 +324,3 @@ function navigatePokemon(direction) {
     closeOverlay();
     setTimeout(() => openOverlay(newIndex), 50);
 }
-

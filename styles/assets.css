@@ -313,3 +313,13 @@ img {
         transform: rotate(360deg);
     }
 }
+
+.loadPkmsBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button{
+        margin-bottom: 16px;
+    }
+}

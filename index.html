@@ -20,12 +20,6 @@
 </head>
 
 <body onload="init()">
-
-    <div class="loadingItems" id="loadingScreen">
-        <img id="loadingSpinner" src="./assets/icons/loadingspinner.png" alt="Lädt...">
-        <span>loading...</span>
-    </div>
-
     <header>
         <div>
             <img src="./assets/icons/pokeball_fav_icon.png" alt="Pokeball Logo">
@@ -37,6 +31,17 @@
 
     <main>
         <div id="content"></div>
+
+        <div class="loadPkmsBtn">
+            <button onclick="loadMorePokemons()">More Pokemons!</button>
+        </div>
+
+        <div class="loadingItems" id="loadingScreen">
+            <img id="loadingSpinner" src="./assets/icons/loadingspinner.png" alt="Lädt...">
+            <span>loading...</span>
+        </div>
+        
+
     </main>
 
     <footer>
