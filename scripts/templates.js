@@ -19,13 +19,13 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
     let abilitiesFormatted = capitalizeFirstLetterOfEachWord(pokemonDetails.abilities);
     let formattedGames = capitalizeGameNames(games);
     let gameListHTML = formattedGames.length > 0
-        ? `<div class="games-list-container"><ul>${formattedGames.map(game => `<li>${game}</li>`).join("")}</ul></div>`
+        ? `<div class="gamesListContainer"><ul>${formattedGames.map(game => `<li>${game}</li>`).join("")}</ul></div>`
         : "<p>Keine Spielinformationen verfügbar</p>";
 
     return `
         <div id="overlay" class="overlay" data-index="${index}" onclick="closeOverlay()">
-            <div id="overlayColors" class="overlay-content" onclick="event.stopPropagation();">
-                <button class="close-btn" onclick="closeOverlay()">✖</button>
+            <div id="overlayColors" class="overlayContent" onclick="event.stopPropagation();">
+                <button class="closeBtn" onclick="closeOverlay()">✖</button>
                 <h2>${pokemonName}</h2>
                 <img src="${pokemonImg}" alt="${pokemonName}">
                 <div class="types mg-btm-16">${types}</div>
@@ -56,8 +56,8 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
 
                 <div id="info-moves-${index}" class="infoBox" style="display: none;">
                     <p><strong>The Pokemon can perform these moves:</strong></p>
-                    <div class="moves-list-container">
-                        <ul class="moves-list">
+                    <div class="movesListContainer">
+                        <ul class="movesList">
                             ${pokemonDetails.moves.split(',').map(move => `<li>${capitalizeFirstLetter(move)}</li>`).join('')}
                         </ul>
                     </div>

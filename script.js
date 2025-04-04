@@ -77,7 +77,7 @@ function renderTypes(typesArray) {
         let iconPath = `./assets/pokemonIcons/${typeName}.png`;
 
         return `<span class="type">
-                    <img class="elementIcons type-icon" src="${iconPath}" alt="${typeName}">
+                    <img class="elementIcons typeIcon" src="${iconPath}" alt="${typeName}">
                 </span>`;
     }).join(' ');
 }
@@ -89,9 +89,9 @@ function showInfo(sectionId) {
     if (infoBox) infoBox.style.display = "block";
     else console.error("Fehler: Element mit ID", sectionId, "nicht gefunden!");
 
-    document.querySelectorAll('.navBar button').forEach(button => button.classList.remove("active-button"));
+    document.querySelectorAll('.navBar button').forEach(button => button.classList.remove("activeButton"));
     const activeButton = document.querySelector(`.navBar button[onclick="showInfo('${sectionId}')"]`);
-    if (activeButton) activeButton.classList.add("active-button");
+    if (activeButton) activeButton.classList.add("activeButton");
 }
 
 
@@ -184,13 +184,13 @@ function applyOverlayBackgroundColor() {
         const bgClass = `bg_${primaryType.trim()}`;
 
         overlay.classList.remove(...overlay.classList);
-        overlay.classList.add("overlay-content", bgClass);
+        overlay.classList.add("overlayContent", bgClass);
     }
 }
 
 
 function firstActiveOverlayBtn() {
-    document.getElementById('aboutButton').classList.add('active-button');
+    document.getElementById('aboutButton').classList.add('activeButton');
 }
 
 
@@ -198,12 +198,12 @@ function renderStatsBar(statName, value) {
     const maxStat = 255, percentage = (value / maxStat) * 100;
     const statColors = { hp: "#FF5959", attack: "#F5AC78", defense: "#FAE078", "special-attack": "#9DB7F5", "special-defense": "#A7DB8D", speed: "#FA92B2", total: "#A8A878" };
     return `
-        <div class="stat-container">
-            <span class="stat-name">${statName.toUpperCase()}</span>
-            <div class="stat-bar">
-                <div class="stat-fill" style="width: ${percentage}%; background-color: ${statColors[statName] || '#A8A878'};"></div>
+        <div class="statContainer">
+            <span class="statName">${statName.toUpperCase()}</span>
+            <div class="statBar">
+                <div class="statFill" style="width: ${percentage}%; background-color: ${statColors[statName] || '#A8A878'};"></div>
             </div>
-            <span class="stat-value">${value}</span>
+            <span class="statValue">${value}</span>
         </div>
     `;
 }
