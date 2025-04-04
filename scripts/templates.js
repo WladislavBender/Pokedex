@@ -14,8 +14,6 @@ function getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types) {
     `;
 }
 
-
-
 function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails, games) {
     let speciesNameFormatted = capitalizeFirstLetterOfEachWord(pokemonDetails.speciesName);
     let abilitiesFormatted = capitalizeFirstLetterOfEachWord(pokemonDetails.abilities);
@@ -35,16 +33,16 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                 <div class="navBar">
                     <button id="aboutButton" class="btnDesign" onclick="showInfo('info-about-${index}')">About</button>
                     <button class="btnDesign" onclick="showInfo('info-stats-${index}')">Base Stats</button>
-                    <button class="btnDesign" onclick="showInfo('info-evolution-${index}')">Evolution</button>
+                    <button class="btnDesign" onclick="showInfo('info-moves-${index}')">Moves</button>
                     <button class="btnDesign" onclick="showInfo('info-games-${index}')">Games</button>
                 </div>
 
                 <div id="info-about-${index}" class="infoBox" style="display: block;">
-                <p><strong>Species:</strong> ${speciesNameFormatted}</p>
-                <p><strong>Height:</strong> ${pokemonDetails.height} m</p>
-                <p><strong>Weight:</strong> ${pokemonDetails.weight} kg</p>
-                <p><strong>Abilities:</strong> ${abilitiesFormatted}</p>
-            </div>
+                    <p><strong>Species:</strong> ${speciesNameFormatted}</p>
+                    <p><strong>Height:</strong> ${pokemonDetails.height} m</p>
+                    <p><strong>Weight:</strong> ${pokemonDetails.weight} kg</p>
+                    <p><strong>Abilities:</strong> ${abilitiesFormatted}</p>
+                </div>
 
                 <div id="info-stats-${index}" class="infoBox" style="display: none;">
                     ${renderStatsBar("HP", pokemonDetails.stats["hp"])}
@@ -54,6 +52,15 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                     ${renderStatsBar("Special Defense", pokemonDetails.stats["special-defense"])}
                     ${renderStatsBar("Speed", pokemonDetails.stats["speed"])}
                     ${renderStatsBar("Total", pokemonDetails.stats["total"])}
+                </div>
+
+                <div id="info-moves-${index}" class="infoBox" style="display: none;">
+                    <p><strong>Moves:</strong></p>
+                    <div class="moves-list-container">
+                        <ul class="moves-list">
+                            ${pokemonDetails.moves.split(',').map(move => `<li>${capitalizeFirstLetter(move)}</li>`).join('')}
+                        </ul>
+                    </div>
                 </div>
 
                 <div id="info-games-${index}" class="infoBox" style="display: none;">

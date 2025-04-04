@@ -35,6 +35,9 @@ async function getPokemonDetails(pokemonData) {
 
     stats["total"] = total;
 
+    // Abrufen der Moves
+    let moves = pokemonData.moves.map(move => move.move.name).join(", ");
+
     return {
         speciesName,
         height,
@@ -43,7 +46,8 @@ async function getPokemonDetails(pokemonData) {
         genderRate,
         eggGroups,
         eggCycle,
-        stats
+        stats,
+        moves // Hier fügen wir die Moves hinzu
     };
 }
 
@@ -270,4 +274,9 @@ function capitalizeFirstLetterOfEachWord(str) {
         .split(" ")
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
+}
+
+
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }

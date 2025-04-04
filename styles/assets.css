@@ -186,3 +186,35 @@ img {
 .games-list-container li:last-child {
     border-bottom: none;
 }
+
+
+
+/* Container für die Moves */
+.moves-list-container {
+    max-height: 245px;  /* Höhe der Liste (kann angepasst werden) */
+    overflow-y: auto;  /* Aktiviert die vertikale Scrollbar */
+    padding-right: 10px;  /* Platz für die Scrollbar */
+}
+
+/* Formatierung der Liste */
+.moves-list {
+    list-style-type: none; /* Entfernt die Standard-Punkte */
+    padding: 0;
+    margin: 0;
+}
+
+.moves-list li {
+    font-weight: bold;
+    color: #000000;
+    padding: 5px;
+    background-color: #f0f0f0;  /* Heller Hintergrund für jedes Listenelement */
+    margin-bottom: 4px;
+    border-radius: 5px;  /* Abgerundete Ecken */
+    font-size: 14px;
+    word-wrap: break-word; /* Textumbruch, falls der Move zu lang ist */
+}
+
+/* Hover-Effekt für jedes Listenelement */
+.moves-list li:hover {
+    background-color: #e0e0e0; /* Leichterer Farbwechsel bei Hover */
+}
