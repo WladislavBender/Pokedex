@@ -1,0 +1,198 @@
+.infoBox {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+
+    p {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 450px;
+    height: 825px;
+    position: relative;
+    border: 4px solid white;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.navBar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.btnDesign {
+    border: none;
+    background-color: transparent;
+}
+
+.active-button {
+    border-bottom: 3px solid #ffcc00;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+
+.stat-container {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.stat-name {
+    width: 120px;
+    font-weight: bold;
+}
+
+.stat-bar {
+    flex: 1;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.stat-fill {
+    height: 100%;
+    border-radius: 6px;
+}
+
+.stat-value {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.games-list-container {
+    max-height: 245px;
+    overflow-y: auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 8px;
+    background: #f8f8f8;
+}
+
+.games-list-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.games-list-container li {
+    padding: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.games-list-container li:last-child {
+    border-bottom: none;
+}
+
+.moves-list-container {
+    max-height: 245px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.moves-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.moves-list li {
+    font-weight: bold;
+    color: #000000;
+    padding: 5px;
+    background-color: #f0f0f0;
+    margin-bottom: 4px;
+    border-radius: 5px;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+.moves-list li:hover {
+    background-color: #e0e0e0;
+}
+
+#prevPokemonBtn {
+    position: absolute;
+    top: 740px;
+    right: 315px;
+}
+
+#nextPokemonBtn {
+    position: absolute;
+    top: 740px;
+    left: 315px;
+}
+
+#prevPokemonBtn,
+#nextPokemonBtn,
+#morePkmsBtn {
+    background: linear-gradient(135deg, #ff4e50, #fc913a);
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 24px;
+    margin: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    outline: none;
+    text-transform: uppercase;
+}
+
+#prevPokemonBtn:hover,
+#nextPokemonBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#prevPokemonBtn:active,
+#nextPokemonBtn:active {
+    transform: scale(1);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+#prevPokemonBtn {
+    background: linear-gradient(135deg, #2196F3, #1E88E5);
+}
+
+#nextPokemonBtn {
+    background: linear-gradient(135deg, #FF5722, #E64A19);
+}

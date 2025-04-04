@@ -23,66 +23,31 @@ async function init() {
 
 async function loadMorePokemons() {
     try {
-        let loadingScreen = document.getElementById("loadingScreen");
-        loadingScreen.classList.remove("hidden");
-
-        const url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadedPokemonCount}`;
-
-        let response = await fetch(url);
-        let data = await response.json();
-
+        document.getElementById("loadingScreen").classList.remove("hidden");
+        const data = await (await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadedPokemonCount}`)).json();
         renderPokemonList(data.results);
-
         loadedPokemonCount += 20;
-
     } catch (error) {
         console.error("Fehler beim Laden der weiteren Pokémon:", error);
     } finally {
-        setTimeout(() => {
-            let loadingScreen = document.getElementById("loadingScreen");
-            loadingScreen.classList.add("hidden");
-        }, 5000);
+        setTimeout(() => document.getElementById("loadingScreen").classList.add("hidden"), 5000);
     }
 }
 
 
-
 async function getPokemonDetails(pokemonData) {
-    let speciesUrl = pokemonData.species.url;
-    let speciesResponse = await fetch(speciesUrl);
-    let speciesData = await speciesResponse.json();
-    let height = pokemonData.height / 10;
-    let weight = pokemonData.weight / 10;
-    let abilities = pokemonData.abilities.map(a => a.ability.name).join(", ");
-    let genderRate = speciesData.gender_rate;
-    let eggGroups = speciesData.egg_groups.map(group => group.name).join(", ");
-    let eggCycle = speciesData.hatch_counter;
-    let speciesName = speciesData.name;
-
-    let stats = {};
-    let total = 0;
-
-    pokemonData.stats.forEach(stat => {
-        let statName = stat.stat.name;
-        let baseValue = stat.base_stat;
-        stats[statName] = baseValue;
-        total += baseValue;
-    });
-
-    stats["total"] = total;
-
-    let moves = pokemonData.moves.map(move => move.move.name).join(", ");
-
+    const speciesData = await (await fetch(pokemonData.species.url)).json();
+    const stats = pokemonData.stats.reduce((acc, stat) => (acc[stat.stat.name] = stat.base_stat, acc), { total: pokemonData.stats.reduce((sum, stat) => sum + stat.base_stat, 0) });
     return {
-        speciesName,
-        height,
-        weight,
-        abilities,
-        genderRate,
-        eggGroups,
-        eggCycle,
+        speciesName: speciesData.name,
+        height: pokemonData.height / 10,
+        weight: pokemonData.weight / 10,
+        abilities: pokemonData.abilities.map(a => a.ability.name).join(", "),
+        genderRate: speciesData.gender_rate,
+        eggGroups: speciesData.egg_groups.map(group => group.name).join(", "),
+        eggCycle: speciesData.hatch_counter,
         stats,
-        moves
+        moves: pokemonData.moves.map(move => move.move.name).join(", ")
     };
 }
 
@@ -90,17 +55,13 @@ async function getPokemonDetails(pokemonData) {
 async function renderPokemonList(pokemonArray) {
     let contentDiv = document.getElementById("content");
     contentDiv.innerHTML = "";
-
     for (let index = 0; index < pokemonArray.length; index++) {
         let pokemon = pokemonArray[index];
         try {
-            let response = await fetch(pokemon.url);
-            let pokemonData = await response.json();
-            let imageUrl = pokemonData.sprites.front_default;
-            let pokemonDetails = await getPokemonDetails(pokemonData);
-
-            let types = renderTypes(pokemonData.types);
-
+            const pokemonData = await (await fetch(pokemon.url)).json();
+            const imageUrl = pokemonData.sprites.front_default;
+            const pokemonDetails = await getPokemonDetails(pokemonData);
+            const types = renderTypes(pokemonData.types);
             contentDiv.innerHTML += getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types);
         } catch (error) {
             console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
@@ -123,45 +84,28 @@ function renderTypes(typesArray) {
 
 
 function showInfo(sectionId) {
-    document.querySelectorAll('.infoBox').forEach(box => {
-        box.style.display = 'none';
-    });
+    document.querySelectorAll('.infoBox').forEach(box => box.style.display = 'none');
+    const infoBox = document.getElementById(sectionId);
+    if (infoBox) infoBox.style.display = "block";
+    else console.error("Fehler: Element mit ID", sectionId, "nicht gefunden!");
 
-    let infoBox = document.getElementById(sectionId);
-    if (infoBox) {
-        infoBox.style.display = "block";
-    } else {
-        console.error("Fehler: Element mit ID", sectionId, "nicht gefunden!");
-    }
-
-    document.querySelectorAll('.navBar button').forEach(button => {
-        button.classList.remove("active-button");
-    });
-
-    let activeButton = document.querySelector(`.navBar button[onclick="showInfo('${sectionId}')"]`);
-    if (activeButton) {
-        activeButton.classList.add("active-button");
-    }
+    document.querySelectorAll('.navBar button').forEach(button => button.classList.remove("active-button"));
+    const activeButton = document.querySelector(`.navBar button[onclick="showInfo('${sectionId}')"]`);
+    if (activeButton) activeButton.classList.add("active-button");
 }
 
 
 async function openOverlay(index) {
     let pokemon = document.querySelectorAll(".pokemonCard")[index];
     if (!pokemon) return;
+    const pokemonName = pokemon.querySelector("h3").innerText.split(" ")[1];
+    const pokemonImg = pokemon.querySelector(".overviewImg").src;
+    const types = pokemon.querySelector("#types").innerHTML;
+    const pokemonData = await (await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`)).json();
+    const pokemonDetails = await getPokemonDetails(pokemonData);
+    const games = await getPokemonGames(pokemonName.toLowerCase());
 
-    let pokemonName = pokemon.querySelector("h3").innerText.split(" ")[1];
-    let pokemonImg = pokemon.querySelector(".overviewImg").src;
-    let types = pokemon.querySelector("#types").innerHTML;
-
-    let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
-    let pokemonData = await response.json();
-    let pokemonDetails = await getPokemonDetails(pokemonData);
-    let games = await getPokemonGames(pokemonName.toLowerCase());
-
-    let overlayHTML = getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails, games);
-
-    document.body.innerHTML += overlayHTML;
-
+    document.body.innerHTML += getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails, games);
     document.body.style.overflow = "hidden";
 
     firstActiveOverlayBtn();
@@ -216,25 +160,13 @@ pokemonData.forEach((pokemon, index) => {
 
 
 function applyBackgroundColor() {
-    const pokemonCards = document.querySelectorAll(".pokemonCard");
-
-    pokemonCards.forEach(card => {
-        const typesContainer = card.querySelector("#types");
-        const typeElements = typesContainer.querySelectorAll(".type");
-
+    document.querySelectorAll(".pokemonCard").forEach(card => {
+        const typeElements = card.querySelector("#types").querySelectorAll(".type");
         if (typeElements.length > 0) {
-            const primaryType = typeElements[0].querySelector("img").alt.toLowerCase();
-            const bgClass = `bg_${primaryType.trim()}`;
-
-            if (primaryType) {
-                const bgClass = `bg_${primaryType.trim()}`;
-                card.classList.add(bgClass);
-            }
-
+            const primaryType = typeElements[0].querySelector("img").alt.toLowerCase().trim();
+            const bgClass = `bg_${primaryType}`;
+            card.className = `pokemonCard ${bgClass}`;
             card.id = `bg_${primaryType}_${Math.random().toString(36).substr(2, 5)}`;
-
-            card.classList.remove(...card.classList);
-            card.classList.add("pokemonCard", bgClass);
         }
     });
 }
@@ -263,18 +195,8 @@ function firstActiveOverlayBtn() {
 
 
 function renderStatsBar(statName, value) {
-    const maxStat = 255;
-    const percentage = (value / maxStat) * 100;
-    const statColors = {
-        hp: "#FF5959",
-        attack: "#F5AC78",
-        defense: "#FAE078",
-        "special-attack": "#9DB7F5",
-        "special-defense": "#A7DB8D",
-        speed: "#FA92B2",
-        total: "#A8A878"
-    };
-
+    const maxStat = 255, percentage = (value / maxStat) * 100;
+    const statColors = { hp: "#FF5959", attack: "#F5AC78", defense: "#FAE078", "special-attack": "#9DB7F5", "special-defense": "#A7DB8D", speed: "#FA92B2", total: "#A8A878" };
     return `
         <div class="stat-container">
             <span class="stat-name">${statName.toUpperCase()}</span>
