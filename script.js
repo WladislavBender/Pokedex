@@ -45,6 +45,18 @@ async function getPokemonDetails(pokemonData) {
     let eggCycle = speciesData.hatch_counter;
     let speciesName = speciesData.name;
 
+    let stats = {};
+    let total = 0;
+
+    pokemonData.stats.forEach(stat => {
+        let statName = stat.stat.name;
+        let baseValue = stat.base_stat;
+        stats[statName] = baseValue;
+        total += baseValue;
+    });
+
+    stats["total"] = total;
+
     return {
         speciesName,
         height,
@@ -52,9 +64,11 @@ async function getPokemonDetails(pokemonData) {
         abilities,
         genderRate,
         eggGroups,
-        eggCycle
+        eggCycle,
+        stats
     };
 }
+
 
 
 async function renderPokemonList(pokemonArray) {
@@ -94,12 +108,10 @@ function renderTypes(typesArray) {
 
 
 function showInfo(sectionId) {
-    // Alle Info-Boxen verstecken
     document.querySelectorAll('.infoBox').forEach(box => {
         box.style.display = 'none';
     });
 
-    // Gewünschte Info-Box anzeigen
     let infoBox = document.getElementById(sectionId);
     if (infoBox) {
         infoBox.style.display = "block";
@@ -107,12 +119,10 @@ function showInfo(sectionId) {
         console.error("Fehler: Element mit ID", sectionId, "nicht gefunden!");
     }
 
-    // Alle Buttons zurücksetzen (aktive Klasse entfernen)
     document.querySelectorAll('.navBar button').forEach(button => {
         button.classList.remove("active-button");
     });
 
-    // Den aktuell gedrückten Button hervorheben
     let activeButton = document.querySelector(`.navBar button[onclick="showInfo('${sectionId}')"]`);
     if (activeButton) {
         activeButton.classList.add("active-button");
@@ -236,4 +246,29 @@ function applyOverlayBackgroundColor() {
 
 function firstActiveOverlayBtn() {
     document.getElementById('aboutButton').classList.add('active-button');
+}
+
+
+function renderStatsBar(statName, value) {
+    const maxStat = 255;
+    const percentage = (value / maxStat) * 100;
+    const statColors = {
+        hp: "#FF5959",
+        attack: "#F5AC78",
+        defense: "#FAE078",
+        "special-attack": "#9DB7F5",
+        "special-defense": "#A7DB8D",
+        speed: "#FA92B2",
+        total: "#A8A878"
+    };
+
+    return `
+        <div class="stat-container">
+            <span class="stat-name">${statName.toUpperCase()}</span>
+            <div class="stat-bar">
+                <div class="stat-fill" style="width: ${percentage}%; background-color: ${statColors[statName] || '#A8A878'};"></div>
+            </div>
+            <span class="stat-value">${value}</span>
+        </div>
+    `;
 }

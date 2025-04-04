@@ -7,7 +7,7 @@ function getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types) {
                     <img class="overviewImg" src="${imageUrl}" alt="${pokemon.name}">
                 </div>
                 <div class="types" id="types">
-                    ${types} <!-- Hier werden jetzt die Icons statt des Texts eingefügt -->
+                    ${types}
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                     <button class="btnDesign" onclick="showInfo('info-moves-${index}')">Moves</button>
                 </div>
 
-                <div id="info-about-${index}" class="infoBox" style="display: block;">  <!-- Display: block für "About" -->
+                <div id="info-about-${index}" class="infoBox" style="display: block;">
                     <p><strong>Species:</strong> ${pokemonDetails.speciesName}</p>
                     <p><strong>Height:</strong> ${pokemonDetails.height} m</p>
                     <p><strong>Weight:</strong> ${pokemonDetails.weight} kg</p>
@@ -43,8 +43,15 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                 </div>
 
                 <div id="info-stats-${index}" class="infoBox" style="display: none;">
-                    <p>Base Stats kommen hier.</p>
+                    ${renderStatsBar("HP", pokemonDetails.stats["hp"])}
+                    ${renderStatsBar("Attack", pokemonDetails.stats["attack"])}
+                    ${renderStatsBar("Defense", pokemonDetails.stats["defense"])}
+                    ${renderStatsBar("Special Attack", pokemonDetails.stats["special-attack"])}
+                    ${renderStatsBar("Special Defense", pokemonDetails.stats["special-defense"])}
+                    ${renderStatsBar("Speed", pokemonDetails.stats["speed"])}
+                    ${renderStatsBar("Total", pokemonDetails.stats["total"])}
                 </div>
+                
                 <div id="info-evolution-${index}" class="infoBox" style="display: none;">
                     <p>Evolution kommen hier.</p>
                 </div>
