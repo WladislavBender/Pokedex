@@ -6,7 +6,7 @@ window.addEventListener("load", () => {
     setTimeout(() => {
         const loadingScreen = document.getElementById("loadingScreen");
         loadingScreen.classList.add("hidden");
-    }, 3000);
+    }, 5000);
 });
 
 
@@ -23,6 +23,9 @@ async function init() {
 
 async function loadMorePokemons() {
     try {
+        let loadingScreen = document.getElementById("loadingScreen");
+        loadingScreen.classList.remove("hidden");
+
         const url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadedPokemonCount}`;
 
         let response = await fetch(url);
@@ -31,11 +34,17 @@ async function loadMorePokemons() {
         renderPokemonList(data.results);
 
         loadedPokemonCount += 20;
-        
+
     } catch (error) {
         console.error("Fehler beim Laden der weiteren Pokémon:", error);
+    } finally {
+        setTimeout(() => {
+            let loadingScreen = document.getElementById("loadingScreen");
+            loadingScreen.classList.add("hidden");
+        }, 5000);
     }
 }
+
 
 
 async function getPokemonDetails(pokemonData) {

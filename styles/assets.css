@@ -118,7 +118,7 @@ img {
     align-items: center;
 }
 
-.btnDesign{
+.btnDesign {
     border: none;
     background-color: transparent;
 }
@@ -154,6 +154,7 @@ img {
     height: 100%;
     border-radius: 6px;
 }
+
 .stat-value {
     margin-left: 10px;
     font-weight: bold;
@@ -213,20 +214,21 @@ img {
     background-color: #e0e0e0;
 }
 
-#prevPokemonBtn{
+#prevPokemonBtn {
     position: absolute;
     top: 740px;
     right: 315px;
 }
 
-#nextPokemonBtn{
+#nextPokemonBtn {
     position: absolute;
     top: 740px;
     left: 315px;
 }
 
 #prevPokemonBtn,
-#nextPokemonBtn {
+#nextPokemonBtn,
+#morePkmsBtn {
     background: linear-gradient(135deg, #ff4e50, #fc913a);
     border: none;
     color: white;
@@ -262,18 +264,18 @@ img {
     background: linear-gradient(135deg, #FF5722, #E64A19);
 }
 
-.loadingItems{
+.loadingItems {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    img{
+    img {
         height: 150px !important;
         width: 150px !important;
     }
 
-    span{
+    span {
         font-size: 24px !important;
         margin-top: 16px !important;
         color: #000000;
@@ -309,17 +311,28 @@ img {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
 }
 
-.loadPkmsBtn{
+.loadPkmsBtn {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 24px;
 
-    button{
+    button {
         margin-bottom: 16px;
     }
+}
+
+#morePkmsBtn {
+    background: linear-gradient(135deg, #FF5722, #E64A19);
+}
+
+#morePkmsBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
