@@ -35,7 +35,6 @@ async function getPokemonDetails(pokemonData) {
 
     stats["total"] = total;
 
-    // Abrufen der Moves
     let moves = pokemonData.moves.map(move => move.move.name).join(", ");
 
     return {
@@ -47,7 +46,7 @@ async function getPokemonDetails(pokemonData) {
         eggGroups,
         eggCycle,
         stats,
-        moves // Hier fügen wir die Moves hinzu
+        moves
     };
 }
 
@@ -265,9 +264,11 @@ async function getPokemonGames(pokemonName) {
     }
 }
 
+
 function capitalizeGameNames(games) {
     return games.map(game => game.charAt(0).toUpperCase() + game.slice(1));
 }
+
 
 function capitalizeFirstLetterOfEachWord(str) {
     return str
@@ -292,7 +293,7 @@ function navigatePokemon(direction) {
     let pokemonCards = document.querySelectorAll(".pokemonCard");
     if (newIndex < 0 || newIndex >= pokemonCards.length) return;
 
-    closeOverlay(); // Entferne das aktuelle Overlay
-    setTimeout(() => openOverlay(newIndex), 50); // Öffne das neue Pokémon nach einer kurzen Verzögerung
+    closeOverlay();
+    setTimeout(() => openOverlay(newIndex), 50);
 }
 

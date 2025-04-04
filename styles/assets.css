@@ -74,7 +74,7 @@
     border-radius: 10px;
     text-align: center;
     width: 450px;
-    height: 760px;
+    height: 825px;
     position: relative;
     border: 4px solid white;
 }
@@ -94,7 +94,6 @@ img {
     height: 244px;
     margin-top: 10px;
 }
-
 
 .type-icon {
     height: 48px !important;
@@ -187,7 +186,6 @@ img {
     border-bottom: none;
 }
 
-
 .moves-list-container {
     max-height: 245px;
     overflow-y: auto;
@@ -213,4 +211,53 @@ img {
 
 .moves-list li:hover {
     background-color: #e0e0e0;
+}
+
+#prevPokemonBtn{
+    position: absolute;
+    top: 740px;
+    right: 315px;
+}
+
+#nextPokemonBtn{
+    position: absolute;
+    top: 740px;
+    left: 315px;
+}
+
+#prevPokemonBtn,
+#nextPokemonBtn {
+    background: linear-gradient(135deg, #ff4e50, #fc913a);
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 24px;
+    margin: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    outline: none;
+    text-transform: uppercase;
+}
+
+#prevPokemonBtn:hover,
+#nextPokemonBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#prevPokemonBtn:active,
+#nextPokemonBtn:active {
+    transform: scale(1);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+#prevPokemonBtn {
+    background: linear-gradient(135deg, #2196F3, #1E88E5);
+}
+
+#nextPokemonBtn {
+    background: linear-gradient(135deg, #FF5722, #E64A19);
 }
