@@ -150,15 +150,6 @@ function filterPokemon() {
 }
 
 
-const pokemonContainer = document.getElementById('pokemonContainer');
-const pokemonData = [];
-
-pokemonData.forEach((pokemon, index) => {
-    const cardHTML = getPokemonCard(index, pokemon, imageUrl, pokemon.details, types);
-    pokemonContainer.innerHTML += cardHTML;
-});
-
-
 function applyBackgroundColor() {
     document.querySelectorAll(".pokemonCard").forEach(card => {
         const typeElements = card.querySelector("#types").querySelectorAll(".type");
