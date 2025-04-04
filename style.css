@@ -1,0 +1,40 @@
+header {
+    background-color: #e1e1e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    padding: 24px;
+
+    img{
+        height: 60px;
+    }
+
+    div{
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
+}
+
+main {
+    flex-grow: 1;
+    background-color: #ffffff;
+}
+
+footer {
+    background-color: #e1e1e1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+        height: 128px;
+        margin: -20px 0;
+    }
+
+    span {
+        color: rgb(0, 0, 0);
+    }
+}
