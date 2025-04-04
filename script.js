@@ -141,10 +141,10 @@ function filterPokemon() {
         const nameElement = card.querySelector("h3");
         const pokemonName = nameElement.textContent.toLowerCase();
 
-        if (pokemonName.includes(searchTerm)) {
+        if (searchTerm.length < 3) {
             card.style.display = "";
         } else {
-            card.style.display = "none";
+            card.style.display = pokemonName.includes(searchTerm) ? "" : "none";
         }
     });
 }
