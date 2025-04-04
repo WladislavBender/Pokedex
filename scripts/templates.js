@@ -23,7 +23,7 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
         : "<p>Keine Spielinformationen verfügbar</p>";
 
     return `
-        <div id="overlay" class="overlay" onclick="closeOverlay()">
+        <div id="overlay" class="overlay" data-index="${index}" onclick="closeOverlay()">
             <div id="overlayColors" class="overlay-content" onclick="event.stopPropagation();">
                 <button class="close-btn" onclick="closeOverlay()">✖</button>
                 <h2>${pokemonName}</h2>
@@ -66,6 +66,11 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                 <div id="info-games-${index}" class="infoBox" style="display: none;">
                     <p><strong>The Pokemon appeared in these editions:</strong></p>
                     ${gameListHTML}
+                </div>
+
+                <div id="switchBtns">
+                    <button id="prevPokemonBtn" onclick="navigatePokemon(-1)">Back</button>
+                    <button id="nextPokemonBtn" onclick="navigatePokemon(1)">Next</button>
                 </div>
             </div>
         </div>

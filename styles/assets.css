@@ -188,17 +188,14 @@ img {
 }
 
 
-
-/* Container für die Moves */
 .moves-list-container {
-    max-height: 245px;  /* Höhe der Liste (kann angepasst werden) */
-    overflow-y: auto;  /* Aktiviert die vertikale Scrollbar */
-    padding-right: 10px;  /* Platz für die Scrollbar */
+    max-height: 245px;
+    overflow-y: auto;
+    padding-right: 10px;
 }
 
-/* Formatierung der Liste */
 .moves-list {
-    list-style-type: none; /* Entfernt die Standard-Punkte */
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
@@ -207,14 +204,13 @@ img {
     font-weight: bold;
     color: #000000;
     padding: 5px;
-    background-color: #f0f0f0;  /* Heller Hintergrund für jedes Listenelement */
+    background-color: #f0f0f0;
     margin-bottom: 4px;
-    border-radius: 5px;  /* Abgerundete Ecken */
+    border-radius: 5px;
     font-size: 14px;
-    word-wrap: break-word; /* Textumbruch, falls der Move zu lang ist */
+    word-wrap: break-word;
 }
 
-/* Hover-Effekt für jedes Listenelement */
 .moves-list li:hover {
-    background-color: #e0e0e0; /* Leichterer Farbwechsel bei Hover */
+    background-color: #e0e0e0;
 }

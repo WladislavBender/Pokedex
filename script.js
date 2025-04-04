@@ -280,3 +280,19 @@ function capitalizeFirstLetterOfEachWord(str) {
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+
+function navigatePokemon(direction) {
+    let overlay = document.getElementById("overlay");
+    if (!overlay) return;
+
+    let currentIndex = parseInt(overlay.getAttribute("data-index"));
+    let newIndex = currentIndex + direction;
+
+    let pokemonCards = document.querySelectorAll(".pokemonCard");
+    if (newIndex < 0 || newIndex >= pokemonCards.length) return;
+
+    closeOverlay(); // Entferne das aktuelle Overlay
+    setTimeout(() => openOverlay(newIndex), 50); // Öffne das neue Pokémon nach einer kurzen Verzögerung
+}
+
