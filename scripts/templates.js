@@ -55,7 +55,7 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                 </div>
 
                 <div id="info-moves-${index}" class="infoBox" style="display: none;">
-                    <p><strong>Moves:</strong></p>
+                    <p><strong>The Pokemon can perform these moves:</strong></p>
                     <div class="moves-list-container">
                         <ul class="moves-list">
                             ${pokemonDetails.moves.split(',').map(move => `<li>${capitalizeFirstLetter(move)}</li>`).join('')}
