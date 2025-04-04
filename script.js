@@ -1,5 +1,13 @@
 const pkmList = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
 
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        const loadingScreen = document.getElementById("loadingScreen");
+        loadingScreen.classList.add("hidden");
+    }, 3000);
+});
+
+
 async function init() {
     try {
         let response = await fetch(pkmList);
