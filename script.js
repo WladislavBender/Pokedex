@@ -2,14 +2,6 @@ const pkmList = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
 let loadedPokemonCount = 20;
 
 
-window.addEventListener("load", () => {
-    setTimeout(() => {
-        const loadingScreen = document.getElementById("loadingScreen");
-        loadingScreen.classList.add("hidden");
-    }, 5000);
-});
-
-
 async function init() {
     try {
         let response = await fetch(pkmList);
@@ -22,15 +14,20 @@ async function init() {
 
 
 async function loadMorePokemons() {
+    const loadingScreen = document.getElementById("loadingScreen");
     try {
-        document.getElementById("loadingScreen").classList.remove("hidden");
-        const data = await (await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadedPokemonCount}`)).json();
-        renderPokemonList(data.results);
+        loadingScreen.classList.remove("hidden");
+
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadedPokemonCount}`);
+        const data = await response.json();
+
+        await renderPokemonList(data.results); // ← wichtig: auf das vollständige Rendern warten
         loadedPokemonCount += 20;
+
     } catch (error) {
         console.error("Fehler beim Laden der weiteren Pokémon:", error);
     } finally {
-        setTimeout(() => document.getElementById("loadingScreen").classList.add("hidden"), 5000);
+        loadingScreen.classList.add("hidden");
     }
 }
 
@@ -53,22 +50,27 @@ async function getPokemonDetails(pokemonData) {
 
 
 async function renderPokemonList(pokemonArray) {
-    let contentDiv = document.getElementById("content");
+    const contentDiv = document.getElementById("content");
+    const loadingScreen = document.getElementById("loadingScreen");
     contentDiv.innerHTML = "";
-    for (let index = 0; index < pokemonArray.length; index++) {
-        let pokemon = pokemonArray[index];
+
+    for (let i = 0; i < pokemonArray.length; i++) {
         try {
-            const pokemonData = await (await fetch(pokemon.url)).json();
-            const imageUrl = pokemonData.sprites.front_default;
-            const pokemonDetails = await getPokemonDetails(pokemonData);
-            const types = renderTypes(pokemonData.types);
-            contentDiv.innerHTML += getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types);
-        } catch (error) {
-            console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
+            const data = await (await fetch(pokemonArray[i].url)).json();
+            const img = data.sprites.front_default;
+            const details = await getPokemonDetails(data);
+            const types = renderTypes(data.types);
+            contentDiv.innerHTML += getPokemonCard(i, pokemonArray[i], img, details, types);
+        } catch (e) {
+            console.error(`Fehler bei ${pokemonArray[i].name}:`, e);
         }
     }
+
     applyBackgroundColor();
+    loadingScreen.classList.add("hidden");
 }
+
+
 
 
 function renderTypes(typesArray) {
