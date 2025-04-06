@@ -37,14 +37,14 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                     <button class="btnDesign" onclick="showInfo('info-games-${index}')">Games</button>
                 </div>
 
-                <div id="info-about-${index}" class="infoBox" style="display: block;">
+                <div id="info-about-${index}" class="infoBox block">
                     <p><strong>Species:</strong> ${speciesNameFormatted}</p>
                     <p><strong>Height:</strong> ${pokemonDetails.height} m</p>
                     <p><strong>Weight:</strong> ${pokemonDetails.weight} kg</p>
                     <p><strong>Abilities:</strong> ${abilitiesFormatted}</p>
                 </div>
 
-                <div id="info-stats-${index}" class="infoBox" style="display: none;">
+                <div id="info-stats-${index}" class="infoBox hidden">
                     ${renderStatsBar("HP", pokemonDetails.stats["hp"])}
                     ${renderStatsBar("Attack", pokemonDetails.stats["attack"])}
                     ${renderStatsBar("Defense", pokemonDetails.stats["defense"])}
@@ -54,7 +54,7 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                     ${renderStatsBar("Total", pokemonDetails.stats["total"])}
                 </div>
 
-                <div id="info-moves-${index}" class="infoBox" style="display: none;">
+                <div id="info-moves-${index}" class="infoBox hidden">
                     <p><strong>The Pokemon can perform these moves:</strong></p>
                     <div class="movesListContainer">
                         <ul class="movesList">
@@ -63,7 +63,7 @@ function getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetail
                     </div>
                 </div>
 
-                <div id="info-games-${index}" class="infoBox" style="display: none;">
+                <div id="info-games-${index}" class="infoBox hidden">
                     <p><strong>The Pokemon appeared in these editions:</strong></p>
                     ${gameListHTML}
                 </div>

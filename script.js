@@ -86,15 +86,26 @@ function renderTypes(typesArray) {
 
 
 function showInfo(sectionId) {
-    document.querySelectorAll('.infoBox').forEach(box => box.style.display = 'none');
-    const infoBox = document.getElementById(sectionId);
-    if (infoBox) infoBox.style.display = "block";
-    else console.error("Fehler: Element mit ID", sectionId, "nicht gefunden!");
+    document.querySelectorAll('.infoBox').forEach(box => {
+        box.classList.add('hidden');
+        box.classList.remove('block');
+    });
 
-    document.querySelectorAll('.navBar button').forEach(button => button.classList.remove("activeButton"));
+    ['info-about', sectionId].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.replace('hidden', 'block');
+        else if (id === sectionId) console.error("Fehler: Element mit ID", id, "nicht gefunden!");
+    });
+
+    document.querySelectorAll('.navBar button').forEach(button =>
+        button.classList.remove("activeButton")
+    );
+
     const activeButton = document.querySelector(`.navBar button[onclick="showInfo('${sectionId}')"]`);
     if (activeButton) activeButton.classList.add("activeButton");
 }
+
+
 
 
 async function openOverlay(index) {
@@ -108,7 +119,7 @@ async function openOverlay(index) {
     const games = await getPokemonGames(pokemonName.toLowerCase());
 
     document.body.innerHTML += getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails, games);
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("no-scroll");
 
     firstActiveOverlayBtn();
     applyOverlayBackgroundColor();
@@ -126,13 +137,14 @@ function createInfoBox(id, content, hidden = false) {
 
 
 function closeOverlay() {
-    let overlay = document.getElementById("overlay");
+    const overlay = document.getElementById("overlay");
     if (overlay) {
         overlay.remove();
     }
 
-    document.body.style.overflow = "auto";
+    document.body.classList.remove("no-scroll");
 }
+
 
 
 function filterPokemon() {
@@ -143,13 +155,14 @@ function filterPokemon() {
         const nameElement = card.querySelector("h3");
         const pokemonName = nameElement.textContent.toLowerCase();
 
-        if (searchTerm.length < 3) {
-            card.style.display = "";
+        if (searchTerm.length < 3 || pokemonName.includes(searchTerm)) {
+            card.classList.remove("hidden");
         } else {
-            card.style.display = pokemonName.includes(searchTerm) ? "" : "none";
+            card.classList.add("hidden");
         }
     });
 }
+
 
 
 function applyBackgroundColor() {

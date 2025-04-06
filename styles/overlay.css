@@ -1,3 +1,7 @@
+.no-scroll {
+    overflow: hidden !important;
+}
+
 .infoBox {
     display: none;
     background-color: rgba(0, 0, 0, 0.3);
