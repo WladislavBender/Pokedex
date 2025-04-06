@@ -52,23 +52,24 @@ async function getPokemonDetails(pokemonData) {
 async function renderPokemonList(pokemonArray) {
     const contentDiv = document.getElementById("content");
     const loadingScreen = document.getElementById("loadingScreen");
-    contentDiv.innerHTML = "";
 
-    for (let i = 0; i < pokemonArray.length; i++) {
+    for (let index = 0; index < pokemonArray.length; index++) {
+        const pokemon = pokemonArray[index];
         try {
-            const data = await (await fetch(pokemonArray[i].url)).json();
-            const img = data.sprites.front_default;
-            const details = await getPokemonDetails(data);
-            const types = renderTypes(data.types);
-            contentDiv.innerHTML += getPokemonCard(i, pokemonArray[i], img, details, types);
-        } catch (e) {
-            console.error(`Fehler bei ${pokemonArray[i].name}:`, e);
+            const pokemonData = await (await fetch(pokemon.url)).json();
+            const imageUrl = pokemonData.sprites.front_default;
+            const pokemonDetails = await getPokemonDetails(pokemonData);
+            const types = renderTypes(pokemonData.types);
+            contentDiv.innerHTML += getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types);
+        } catch (error) {
+            console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
         }
     }
 
     applyBackgroundColor();
     loadingScreen.classList.add("hidden");
 }
+
 
 
 
@@ -235,16 +236,16 @@ function capitalizeFirstLetter(str) {
 }
 
 
-function navigatePokemon(direction) {
-    let overlay = document.getElementById("overlay");
+async function navigatePokemon(direction) {
+    const overlay = document.getElementById("overlay");
     if (!overlay) return;
 
-    let currentIndex = parseInt(overlay.getAttribute("data-index"));
-    let newIndex = currentIndex + direction;
+    const currentIndex = parseInt(overlay.getAttribute("data-index"));
+    const newIndex = currentIndex + direction;
 
-    let pokemonCards = document.querySelectorAll(".pokemonCard");
+    const pokemonCards = document.querySelectorAll(".pokemonCard");
     if (newIndex < 0 || newIndex >= pokemonCards.length) return;
 
     closeOverlay();
-    setTimeout(() => openOverlay(newIndex), 50);
+    openOverlay(newIndex);
 }
