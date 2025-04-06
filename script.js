@@ -106,8 +106,6 @@ function showInfo(sectionId) {
 }
 
 
-
-
 async function openOverlay(index) {
     let pokemon = document.querySelectorAll(".pokemonCard")[index];
     if (!pokemon) return;
@@ -127,10 +125,9 @@ async function openOverlay(index) {
 
 
 function createInfoBox(id, content, hidden = false) {
-    let box = document.createElement("div");
+    const box = document.createElement("div");
     box.id = id;
-    box.className = "infoBox";
-    if (hidden) box.style.display = "none";
+    box.className = `infoBox ${hidden ? 'hidden' : 'block'}`;
     box.innerHTML = content;
     return box;
 }
@@ -144,7 +141,6 @@ function closeOverlay() {
 
     document.body.classList.remove("no-scroll");
 }
-
 
 
 function filterPokemon() {
@@ -162,7 +158,6 @@ function filterPokemon() {
         }
     });
 }
-
 
 
 function applyBackgroundColor() {
