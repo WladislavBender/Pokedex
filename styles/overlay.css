@@ -208,3 +208,50 @@
 #nextPokemonBtn {
     background: linear-gradient(135deg, #FF5722, #E64A19);
 }
+
+
+@media (max-width: 450px) {
+    #nextPokemonBtn {
+        left: 210px;
+        top: 638px;
+        font-size: 10px;
+        padding: 8px 12px;
+    }
+
+    #prevPokemonBtn {
+        right: 210px;
+        top: 638px;
+        font-size: 10px;
+        padding: 8px 12px;
+    }
+
+    .overlayContent {
+        width: 300px;
+        height: 700px;
+
+        div{
+            font-size: 12px !important;
+
+            li{
+                font-size: 11px !important;
+            }
+        }
+
+    }
+
+    .infoBox{
+        height: 218px;
+    }
+
+    .movesListContainer {
+        max-height: 150px;
+    }
+
+    .gamesListContainer {
+        max-height: 133px;
+    }
+
+    .closeBtn {
+        font-size: 11px;
+    }
+}

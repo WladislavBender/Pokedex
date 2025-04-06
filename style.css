@@ -44,3 +44,25 @@ footer {
         color: rgb(0, 0, 0);
     }
 }
+
+
+@media (max-width: 450px) {
+    header {
+        input {
+            width: 128px;
+            font-size: 11px;
+        }
+
+        img {
+            height: 40px;
+        }
+
+        div {
+            align-items: end;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+    }
+}
