@@ -1,12 +1,13 @@
 const pkmList = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0";
-let loadedPokemonCount = 20;
+let loadedPokemonCount = 0;
 
 
 async function init() {
     try {
         let response = await fetch(pkmList);
         let data = await response.json();
-        renderPokemonList(data.results.slice(0, 20));
+        await renderPokemonList(data.results.slice(0, 20));
+        loadedPokemonCount += 20;
     } catch (error) {
         console.error("Fehler beim Laden der Pokémon-Liste:", error);
     }
@@ -21,7 +22,7 @@ async function loadMorePokemons() {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadedPokemonCount}`);
         const data = await response.json();
 
-        await renderPokemonList(data.results); // ← wichtig: auf das vollständige Rendern warten
+        await renderPokemonList(data.results);
         loadedPokemonCount += 20;
 
     } catch (error) {
@@ -54,13 +55,14 @@ async function renderPokemonList(pokemonArray) {
     const loadingScreen = document.getElementById("loadingScreen");
 
     for (let index = 0; index < pokemonArray.length; index++) {
+        const globalIndex = loadedPokemonCount + index;
         const pokemon = pokemonArray[index];
         try {
             const pokemonData = await (await fetch(pokemon.url)).json();
             const imageUrl = pokemonData.sprites.front_default;
             const pokemonDetails = await getPokemonDetails(pokemonData);
             const types = renderTypes(pokemonData.types);
-            contentDiv.innerHTML += getPokemonCard(index, pokemon, imageUrl, pokemonDetails, types);
+            contentDiv.innerHTML += getPokemonCard(globalIndex, pokemon, imageUrl, pokemonDetails, types);
         } catch (error) {
             console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
         }
@@ -69,9 +71,6 @@ async function renderPokemonList(pokemonArray) {
     applyBackgroundColor();
     loadingScreen.classList.add("hidden");
 }
-
-
-
 
 
 function renderTypes(typesArray) {
