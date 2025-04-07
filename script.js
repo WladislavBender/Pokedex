@@ -18,13 +18,10 @@ async function loadMorePokemons() {
     const loadingScreen = document.getElementById("loadingScreen");
     try {
         loadingScreen.classList.remove("hidden");
-
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${loadedPokemonCount}`);
         const data = await response.json();
-
         await renderPokemonList(data.results);
         loadedPokemonCount += 20;
-
     } catch (error) {
         console.error("Fehler beim Laden der weiteren Pokémon:", error);
     } finally {
@@ -53,7 +50,6 @@ async function getPokemonDetails(pokemonData) {
 async function renderPokemonList(pokemonArray) {
     const contentDiv = document.getElementById("content");
     const loadingScreen = document.getElementById("loadingScreen");
-
     for (let index = 0; index < pokemonArray.length; index++) {
         const globalIndex = loadedPokemonCount + index;
         const pokemon = pokemonArray[index];
@@ -67,7 +63,6 @@ async function renderPokemonList(pokemonArray) {
             console.error(`Fehler beim Laden von ${pokemon.name}:`, error);
         }
     }
-
     applyBackgroundColor();
     loadingScreen.classList.add("hidden");
 }
@@ -90,19 +85,24 @@ function showInfo(sectionId) {
         box.classList.add('hidden');
         box.classList.remove('block');
     });
-
     ['info-about', sectionId].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.replace('hidden', 'block');
         else if (id === sectionId) console.error("Fehler: Element mit ID", id, "nicht gefunden!");
     });
-
     document.querySelectorAll('.navBar button').forEach(button =>
         button.classList.remove("activeButton")
     );
-
     const activeButton = document.querySelector(`.navBar button[onclick="showInfo('${sectionId}')"]`);
     if (activeButton) activeButton.classList.add("activeButton");
+}
+
+
+function updateSwitchButtons(index, maxIndex) {
+    const prevBtn = document.getElementById("prevPokemonBtn");
+    const nextBtn = document.getElementById("nextPokemonBtn");
+    if (prevBtn) prevBtn.disabled = index === 0;
+    if (nextBtn) nextBtn.disabled = index === maxIndex;
 }
 
 
@@ -115,12 +115,12 @@ async function openOverlay(index) {
     const pokemonData = await (await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`)).json();
     const pokemonDetails = await getPokemonDetails(pokemonData);
     const games = await getPokemonGames(pokemonName.toLowerCase());
-
     document.body.innerHTML += getOverlayTemplate(pokemonName, pokemonImg, types, index, pokemonDetails, games);
     document.body.classList.add("no-scroll");
-
     firstActiveOverlayBtn();
     applyOverlayBackgroundColor();
+    const pokemonCards = document.querySelectorAll(".pokemonCard");
+    updateSwitchButtons(index, pokemonCards.length - 1);
 }
 
 
@@ -138,7 +138,6 @@ function closeOverlay() {
     if (overlay) {
         overlay.remove();
     }
-
     document.body.classList.remove("no-scroll");
 }
 
@@ -146,11 +145,9 @@ function closeOverlay() {
 function filterPokemon() {
     const searchTerm = document.getElementById("searchInput").value.toLowerCase();
     const pokemonCards = document.querySelectorAll(".pokemonCard");
-
     pokemonCards.forEach(card => {
         const nameElement = card.querySelector("h3");
         const pokemonName = nameElement.textContent.toLowerCase();
-
         if (searchTerm.length < 3 || pokemonName.includes(searchTerm)) {
             card.classList.remove("hidden");
         } else {
@@ -176,14 +173,11 @@ function applyBackgroundColor() {
 function applyOverlayBackgroundColor() {
     const overlay = document.getElementById("overlayColors");
     if (!overlay) return;
-
     const typesContainer = overlay.querySelector(".types");
     const typeElements = typesContainer.querySelectorAll(".type");
-
     if (typeElements.length > 0) {
         const primaryType = typeElements[0].querySelector("img").alt.toLowerCase();
         const bgClass = `bg_${primaryType.trim()}`;
-
         overlay.classList.remove(...overlay.classList);
         overlay.classList.add("overlayContent", bgClass);
     }
@@ -214,9 +208,7 @@ async function getPokemonGames(pokemonName) {
     try {
         let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
         let data = await response.json();
-
         let games = data.game_indices.map(entry => entry.version.name);
-
         return games;
     } catch (error) {
         console.error(`Fehler beim Abrufen der Spiele für ${pokemonName}:`, error);
@@ -246,13 +238,10 @@ function capitalizeFirstLetter(str) {
 async function navigatePokemon(direction) {
     const overlay = document.getElementById("overlay");
     if (!overlay) return;
-
     const currentIndex = parseInt(overlay.getAttribute("data-index"));
     const newIndex = currentIndex + direction;
-
     const pokemonCards = document.querySelectorAll(".pokemonCard");
     if (newIndex < 0 || newIndex >= pokemonCards.length) return;
-
     closeOverlay();
     openOverlay(newIndex);
 }

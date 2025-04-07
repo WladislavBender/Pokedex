@@ -2,6 +2,8 @@
     box-sizing: border-box;
     margin: 0;
     scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f5f5f5;
 }
 
 body {
